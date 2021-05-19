@@ -1,0 +1,60 @@
+body {
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  font-size: 14px;
+}
+
+.siba {
+  margin: auto;
+  border-radius: 100%;
+  width: 20vw;
+  height: 20vw;
+  background-image: url("./siba.jpg");
+  background-size: cover;
+  background-position: center;
+  min-width: 200px;
+  min-height: 200px;
+}
+
+.siba::before,
+.siba::after {
+  --scale: 0;
+  --tooptip-color: #333;
+  --allow-size: 10px;
+
+  position: absolute;
+  left: 50%;
+  top: 16rem;
+  z-index: 1;
+  transform: translateX(-50%) translateY(var(--translate-y, 0))
+    scale(var(--scale));
+  transition: 150ms transform;
+  transform-origin: bottom center;
+}
+
+.siba::before {
+  --translate-y: -100%;
+  content: attr(data-tooltip);
+  background-color: var(--tooptip-color);
+  color: white;
+  width: max-content;
+  border-radius: 15px;
+  padding: 12px;
+  font-size: 17px;
+}
+
+.siba:hover::before,
+.siba:hover::after {
+  --scale: 1;
+}
+
+.siba::after {
+  --translate-y: calc(-100% + var(--allow-size));
+  content: "";
+  border-top: var(--allow-size) solid var(--tooptip-color);
+  border-right: var(--allow-size) solid transparent;
+  border-bottom: var(--allow-size) solid none;
+  border-left: var(--allow-size) solid transparent;
+  transform-origin: top center;
+}
